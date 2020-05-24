@@ -30,14 +30,14 @@ module Data.String.FromTo where
 
 import Data.ByteArray.Encoding (Base(..), convertFromBase, convertToBase)
 import Data.ByteString (ByteString)
-import qualified Data.ByteString.Char8 as BC
-import qualified Data.ByteString.Lazy as BL
-import qualified Data.ByteString.Lazy.Char8 as BLC
+import qualified Data.ByteString.Char8 as ByteString.Char8
+import qualified Data.ByteString.Lazy as ByteString.Lazy
+import qualified Data.ByteString.Lazy.Char8 as ByteString.Lazy.Char8
 import Data.Text (Text)
-import qualified Data.Text as T
-import qualified Data.Text.Encoding as TE
-import qualified Data.Text.Lazy as TL
-import qualified Data.Text.Lazy.Encoding as TLE
+import qualified Data.Text as Text
+import qualified Data.Text.Encoding as Text.Encoding
+import qualified Data.Text.Lazy as Text.Lazy
+import qualified Data.Text.Lazy.Encoding as Text.Lazy.Encoding
 
 -- * ByteString to...
 base16ByteStringToByteString :: ByteString -> Either String ByteString
@@ -73,23 +73,23 @@ byteStringToBase32Text = byteStringToText . byteStringToBase32ByteString
 byteStringToBase64Text :: ByteString -> Text
 byteStringToBase64Text = byteStringToText . byteStringToBase64ByteString
 
-byteStringToLazyByteString :: ByteString -> BL.ByteString
-byteStringToLazyByteString = BL.fromStrict
+byteStringToLazyByteString :: ByteString -> ByteString.Lazy.ByteString
+byteStringToLazyByteString = ByteString.Lazy.fromStrict
 
 byteStringToString :: ByteString -> String
-byteStringToString = BC.unpack
+byteStringToString = ByteString.Char8.unpack
 
 byteStringToText :: ByteString -> Text
-byteStringToText = TE.decodeUtf8
+byteStringToText = Text.Encoding.decodeUtf8
 
-lazyByteStringToByteString :: BL.ByteString -> ByteString
-lazyByteStringToByteString = BL.toStrict
+lazyByteStringToByteString :: ByteString.Lazy.ByteString -> ByteString
+lazyByteStringToByteString = ByteString.Lazy.toStrict
 
-lazyByteStringToString :: BL.ByteString -> String
+lazyByteStringToString :: ByteString.Lazy.ByteString -> String
 lazyByteStringToString = textToString . lazyByteStringToText
 
-lazyByteStringToText :: BL.ByteString -> Text
-lazyByteStringToText = TL.toStrict . TLE.decodeUtf8
+lazyByteStringToText :: ByteString.Lazy.ByteString -> Text
+lazyByteStringToText = Text.Lazy.toStrict . Text.Lazy.Encoding.decodeUtf8
 
 -- * Text to...
 base16TextToByteString :: Text -> Either String ByteString
@@ -101,11 +101,11 @@ base32TextToByteString = base32ByteStringToByteString . textToByteString
 base64TextToByteString :: Text -> Either String ByteString
 base64TextToByteString = base64ByteStringToByteString . textToByteString
 
-lazyTextToString :: TL.Text -> String
-lazyTextToString = TL.unpack
+lazyTextToString :: Text.Lazy.Text -> String
+lazyTextToString = Text.Lazy.unpack
 
-lazyTextToText :: TL.Text -> Text
-lazyTextToText = TL.toStrict
+lazyTextToText :: Text.Lazy.Text -> Text
+lazyTextToText = Text.Lazy.toStrict
 
 textToBase16ByteString :: Text -> ByteString
 textToBase16ByteString = byteStringToBase16ByteString . textToByteString
@@ -135,26 +135,26 @@ textToBase64Text :: Text -> Text
 textToBase64Text = byteStringToText . textToBase64ByteString
 
 textToByteString :: Text -> ByteString
-textToByteString = TE.encodeUtf8
+textToByteString = Text.Encoding.encodeUtf8
 
-textToLazyByteString :: Text -> BL.ByteString
+textToLazyByteString :: Text -> ByteString.Lazy.ByteString
 textToLazyByteString = byteStringToLazyByteString . textToByteString
 
-textToLazyText :: Text -> TL.Text
-textToLazyText = TL.fromStrict
+textToLazyText :: Text -> Text.Lazy.Text
+textToLazyText = Text.Lazy.fromStrict
 
 textToString :: Text -> String
-textToString = T.unpack
+textToString = Text.unpack
 
 -- * String to...
 stringToByteString :: String -> ByteString
-stringToByteString = BC.pack
+stringToByteString = ByteString.Char8.pack
 
-stringToLazyByteString :: String -> BL.ByteString
-stringToLazyByteString = BLC.pack
+stringToLazyByteString :: String -> ByteString.Lazy.ByteString
+stringToLazyByteString = ByteString.Lazy.Char8.pack
 
-stringToLazyText :: String -> TL.Text
-stringToLazyText = TL.pack
+stringToLazyText :: String -> Text.Lazy.Text
+stringToLazyText = Text.Lazy.pack
 
 stringToText :: String -> Text
-stringToText = T.pack
+stringToText = Text.pack
