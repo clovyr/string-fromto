@@ -101,6 +101,12 @@ base32TextToByteString = base32ByteStringToByteString . textToByteString
 base64TextToByteString :: Text -> Either String ByteString
 base64TextToByteString = base64ByteStringToByteString . textToByteString
 
+lazyTextToByteString :: Text.Lazy.Text -> ByteString
+lazyTextToByteString = ByteString.Lazy.toStrict . lazyTextToLazyByteString
+
+lazyTextToLazyByteString :: Text.Lazy.Text -> ByteString.Lazy.ByteString
+lazyTextToLazyByteString = Text.Lazy.Encoding.encodeUtf8
+
 lazyTextToString :: Text.Lazy.Text -> String
 lazyTextToString = Text.Lazy.unpack
 
