@@ -6,7 +6,7 @@ homepage:       https://github.com/clovyr/string-fromto
 bug-reports:    https://github.com/clovyr/string-fromto/issues
 author:         Patrick Nielsen
 maintainer:     patrick@clovyr.io
-copyright:      2018-2019 Clovyr LLC
+copyright:      2018-2025 Clovyr LLC
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
